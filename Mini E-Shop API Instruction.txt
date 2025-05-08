@@ -1,0 +1,81 @@
+Intern Test Task — Mini E-Shop API
+
+🎯 Goal:
+You are tasked with building a compact and well-structured ASP.NET Core Web API for a fictional e-shop system. This project should demonstrate your understanding of clean code, RESTful design, SOLID principles, and Docker-based deployment.
+
+The application should support CRUD operations for products and orders, include a factory-based caching mechanism, interact with a relational database, and be deployable via Docker Compose.
+
+The goal is not to overengineer but to showcase practical, clean, and maintainable code.
+
+✅ Functional Requirements
+
+Products API:
+- GET /products — list all products
+- GET /products/{id} — get product by ID
+- POST /products — create product
+- PUT /products/{id} — update product
+- DELETE /products/{id} — delete product
+
+Orders API:
+- GET /orders — list all orders
+- GET /orders/{id} — get order by ID
+- POST /orders — create new order (with one or more products)
+- DELETE /orders/{id} — cancel order
+
+⚙️ Technical Requirements
+
+Backend:
+- ASP.NET Core API (.NET 6 or later)
+- Clean architecture (Controllers, Services, Repositories, Models, etc.)
+- Apply SOLID principles
+- Use Dependency Injection
+
+Database:
+- Use any relational DB (PostgreSQL recommended)
+- Use EF Core or any ORM you're comfortable with
+- Create and apply migrations to seed basic test data (optional but preferred)
+
+Caching:
+- Implement a Factory Pattern to switch between:
+  - In-memory cache
+  - Simulated Redis (can be a class with delays and logs)
+- Switching should be easy via config or DI container
+
+Docker:
+- Add a Dockerfile for your API
+- Add a docker-compose.yml that runs:
+  - The Web API
+  - The relational DB (e.g., PostgreSQL)
+- Ensure DB connection string works inside Docker (use hostnames, not localhost)
+- Application must be fully runnable with docker-compose up --build
+
+📁 Suggested Folder Structure:
+/Controllers
+/Services
+/Repositories
+/Models
+/Cache
+/Factory
+/Data (DbContext)
+
+📄 Deliverables:
+- Working project (GitHub repo or .zip)
+- README.md with:
+  - How to build and run the project with Docker
+  - Sample requests (e.g., curl or Postman)
+  - Cache switching explanation
+  - Any assumptions made
+
+✅ Expected Result:
+- API is accessible via Docker Compose
+- Products and orders can be created, listed, updated, and deleted via HTTP
+- Product read operations are cached with a switchable cache mechanism
+- Clean, well-structured code following SOLID principles and best practices
+- The intern can explain how they implemented caching, database access, Docker, and dependency injection during a follow-up interview
+
+🧠 Interview Reminder:
+On the second interview, you will be asked to:
+- Explain how caching is implemented and switched
+- Walk through your use of SOLID principles
+- Explain your Docker + DB setup
+- Discuss tradeoffs or improvements

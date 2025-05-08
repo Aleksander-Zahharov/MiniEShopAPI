@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "bOfJKZYBF4gmuKUayuVjN7+u8oCTSACNW5ppwoI0xaE=",
+  "Source": "MiniEShopAPI",
+  "BasePath": "_content/MiniEShopAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

@@ -1,0 +1,1 @@
+C:\MiniEShopAPI\MiniEShopAPI\Tests\bin\Debug\net9.0

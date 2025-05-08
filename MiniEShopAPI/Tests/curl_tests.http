@@ -1,0 +1,71 @@
+/**
+ * curl_tests.http contains sample HTTP requests for testing API endpoints.
+ */
+
+### Run the app
+### Install REST Client plugin for VSCode to have a button "Send Request" above each of the command here. 
+### Or you can also test it in terminal (with the running app in another terminal) using curl, like:
+### curl -X GET http://localhost:5000/api/products
+
+### Get all products
+GET http://localhost:5000/api/products
+
+### Get product by ID
+GET http://localhost:5000/api/products/1
+
+### Create a new product
+POST http://localhost:5000/api/products
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "description": "Test Description",
+  "price": 123.45
+}
+
+### Update a product
+PUT http://localhost:5000/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Updated Product",
+  "description": "Updated Description",
+  "price": 150.00
+}
+
+### Delete a product
+DELETE http://localhost:5000/api/products/1
+
+### Get all orders
+GET http://localhost:5000/api/orders
+
+### Get order by ID
+GET http://localhost:5000/api/orders/1
+
+### Create a new order
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+
+{
+  "productIds": [1, 2],
+  "totalPrice": 300.00
+}
+
+### Delete an order
+DELETE http://localhost:5000/api/orders/1
+
+### Get Products
+GET http://localhost:5000/api/product
+
+### Post Product
+POST http://localhost:5000/api/product
+Content-Type: application/json
+
+{
+  "Name": "Test Product",
+  "Description": "Test Description",
+  "Price": 123.45
+}
+
+### Get Orders
+GET http://localhost:5000/api/order

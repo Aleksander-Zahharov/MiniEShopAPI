@@ -1,0 +1,13 @@
+/**
+ * MiniEShopAPI.http contains HTTP requests for testing the Mini E-Shop API.
+ */
+@MiniEShopAPI_HostAddress = http://localhost:5011
+
+GET {{MiniEShopAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### Get all products
+GET http://localhost:5000/api/product/products
+
+### Check database connection
+GET http://localhost:5000/api/product/check-database

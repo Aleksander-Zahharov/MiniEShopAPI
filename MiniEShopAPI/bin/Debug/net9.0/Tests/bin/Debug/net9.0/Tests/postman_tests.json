@@ -1,0 +1,39 @@
+{
+  "info": {
+    "name": "MiniEShopAPI CRUD Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/api/product"
+      }
+    },
+    {
+      "name": "Post Product",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Name\": \"Test Product\",\n  \"Description\": \"Test Description\",\n  \"Price\": 123.45\n}"
+        },
+        "url": "http://localhost:5000/api/product"
+      }
+    },
+    {
+      "name": "Get Orders",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/api/order"
+      }
+    }
+  ]
+}
