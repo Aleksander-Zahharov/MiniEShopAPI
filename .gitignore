@@ -1,0 +1,33 @@
+# Ignore build outputs
+**/bin/
+**/obj/
+**/Tests/bin/
+**/Tests/obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Rider files
+.idea/
+*.sln.iml
+
+# Auto-generated files
+*.db
+appsettings*.json
+
+# Docker files
+**/docker-compose.override.yml
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# Ignore user secrets
+secrets.json
+
+# .NET tools
+.dotnet/

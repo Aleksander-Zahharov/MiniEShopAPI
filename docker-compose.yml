@@ -4,9 +4,10 @@ services:
       context: ./MiniEShopAPI
       dockerfile: Dockerfile
     ports:
-      - "5000:80"
+      - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=MiniEShopDB;Username=postgres;Password=sql
     depends_on:
       - db

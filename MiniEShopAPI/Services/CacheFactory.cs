@@ -4,7 +4,7 @@ namespace MiniEShopAPI.Services;
  * CacheFactory provides a factory method to create cache instances.
  */
 public static class CacheFactory
-{
+{	// ! Easy switch between in-memory and Redis cache implementations
     public static ICache CreateCache(string cacheType)
     {
         return cacheType.ToLower() switch

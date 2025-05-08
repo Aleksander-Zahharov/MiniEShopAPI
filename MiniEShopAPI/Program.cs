@@ -3,6 +3,7 @@
  * It configures and starts the web application.
  */
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using MiniEShopAPI.Data;
 using MiniEShopAPI.Services;
 using MiniEShopAPI.Repositories;
@@ -31,13 +32,29 @@ namespace MiniEShopAPI
             builder.Services.AddEndpointsApiExplorer(); // Enables API endpoint exploration
             builder.Services.AddSwaggerGen(); // Adds Swagger for API documentation
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); // Configures PostgreSQL database
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+                       .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning))); // Suppress pending model changes warning
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // Enables legacy timestamp behavior for compatibility
 
             var cacheType = builder.Configuration["CacheSettings:CacheType"] ?? "InMemory"; // Reads cache type from configuration
             builder.Services.AddSingleton<ICache>(_ => CacheFactory.CreateCache(cacheType)); // Registers the cache service
 
             var app = builder.Build(); // Builds the web application
+
+            // Apply pending migrations automatically
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    dbContext.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Database migration failed but continuing to run the app.");
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -46,7 +63,7 @@ namespace MiniEShopAPI
                 app.UseSwaggerUI(); // Enables Swagger UI in development
             }
 
-            app.UseHttpsRedirection(); // Redirects HTTP requests to HTTPS
+            // app.UseHttpsRedirection(); // Disabled HTTPS redirection to allow HTTP access in Docker
 
             app.UseAuthorization(); // Adds authorization middleware
 

@@ -7,7 +7,7 @@ GET {{MiniEShopAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ### Get all products
-GET http://localhost:5000/api/product/products
+GET http://localhost:80/api/product/products
 
 ### Check database connection
-GET http://localhost:5000/api/product/check-database
+GET http://localhost:80/api/product/check-database

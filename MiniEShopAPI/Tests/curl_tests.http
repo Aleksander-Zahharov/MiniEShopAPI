@@ -1,20 +1,18 @@
-/**
- * curl_tests.http contains sample HTTP requests for testing API endpoints.
- */
+# curl_tests.http contains sample HTTP requests for testing API endpoints. 
 
 ### Run the app
 ### Install REST Client plugin for VSCode to have a button "Send Request" above each of the command here. 
 ### Or you can also test it in terminal (with the running app in another terminal) using curl, like:
-### curl -X GET http://localhost:5000/api/products
+### curl -X GET http://localhost:8080/api/products
 
 ### Get all products
-GET http://localhost:5000/api/products
+GET http://localhost:8080/api/products
 
 ### Get product by ID
-GET http://localhost:5000/api/products/1
+GET http://localhost:8080/api/products/1
 
 ### Create a new product
-POST http://localhost:5000/api/products
+POST http://localhost:8080/api/products
 Content-Type: application/json
 
 {
@@ -24,7 +22,7 @@ Content-Type: application/json
 }
 
 ### Update a product
-PUT http://localhost:5000/api/products/1
+PUT http://localhost:8080/api/products/1
 Content-Type: application/json
 
 {
@@ -34,16 +32,16 @@ Content-Type: application/json
 }
 
 ### Delete a product
-DELETE http://localhost:5000/api/products/1
+DELETE http://localhost:8080/api/products/1
 
 ### Get all orders
-GET http://localhost:5000/api/orders
+GET http://localhost:8080/api/orders
 
 ### Get order by ID
-GET http://localhost:5000/api/orders/1
+GET http://localhost:8080/api/orders/1
 
 ### Create a new order
-POST http://localhost:5000/api/orders
+POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
@@ -52,13 +50,58 @@ Content-Type: application/json
 }
 
 ### Delete an order
-DELETE http://localhost:5000/api/orders/1
+DELETE http://localhost:8080/api/orders/1
+
+### GET /products
+GET http://localhost:8080/products
+
+### GET /products/{id}
+GET http://localhost:8080/products/1
+
+### POST /products
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "price": 10.99
+}
+
+### PUT /products/{id}
+PUT http://localhost:8080/products/1
+Content-Type: application/json
+
+{
+  "name": "Updated Product",
+  "price": 15.99
+}
+
+### DELETE /products/{id}
+DELETE http://localhost:8080/products/1
+
+### GET /orders
+GET http://localhost:8080/orders
+
+### GET /orders/{id}
+GET http://localhost:8080/orders/1
+
+### POST /orders
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "customerName": "John Doe",
+  "products": [1, 2]
+}
+
+### DELETE /orders/{id}
+DELETE http://localhost:8080/orders/1
 
 ### Get Products
-GET http://localhost:5000/api/product
+GET http://localhost:8080/api/product
 
 ### Post Product
-POST http://localhost:5000/api/product
+POST http://localhost:8080/api/product
 Content-Type: application/json
 
 {
@@ -68,4 +111,4 @@ Content-Type: application/json
 }
 
 ### Get Orders
-GET http://localhost:5000/api/order
+GET http://localhost:8080/api/order

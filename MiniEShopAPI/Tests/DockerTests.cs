@@ -58,13 +58,31 @@ public class DockerTests
     public async Task Api_ShouldBeAccessible_WhenDockerIsRunning()
     {
         // Arrange
-        using var client = new HttpClient(); // Creates an HTTP client
-        var requestUrl = "http://localhost:5000/api/product"; // API endpoint to test
+        using var client = new HttpClient();
+        var requestUrl = "http://localhost:8080/api/products/test-db-connection"; // plural endpoint
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
 
-        // Act
-        var response = await client.GetAsync(requestUrl); // Sends a GET request to the API
+        HttpResponseMessage? response = null; // allow null initial value
+        var delay = TimeSpan.FromSeconds(1);
+
+        // Retry until API is ready or timeout
+        for (int i = 0; i < 30; i++)
+        {
+            try
+            {
+                response = await client.GetAsync(requestUrl, cts.Token);
+                if (response.IsSuccessStatusCode)
+                    break;
+            }
+            catch (HttpRequestException)
+            {
+                // Ignore and retry
+            }
+            await Task.Delay(delay, cts.Token);
+        }
 
         // Assert
-        Assert.True(response.IsSuccessStatusCode, "API is not accessible inside Docker."); // Asserts that the API is accessible
+        Assert.NotNull(response);
+        Assert.True(response!.IsSuccessStatusCode, "API is not accessible inside Docker.");
     }
 }

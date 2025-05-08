@@ -1,39 +1,165 @@
 {
   "info": {
-    "name": "MiniEShopAPI CRUD Tests",
+    "name": "Mini E-Shop API Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Get Products",
-      "request": {
-        "method": "GET",
-        "url": "http://localhost:5000/api/product"
-      }
-    },
-    {
-      "name": "Post Product",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+      "name": "Products API",
+      "item": [
+        {
+          "name": "GET /products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["products"]
+            }
           }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"Name\": \"Test Product\",\n  \"Description\": \"Test Description\",\n  \"Price\": 123.45\n}"
         },
-        "url": "http://localhost:5000/api/product"
-      }
+        {
+          "name": "GET /products/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "POST /products",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Product\",\n  \"price\": 10.99\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/products",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "PUT /products/{id}",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Product\",\n  \"price\": 15.99\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /products/{id}",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/products/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["products", "1"]
+            }
+          }
+        }
+      ]
     },
     {
-      "name": "Get Orders",
-      "request": {
-        "method": "GET",
-        "url": "http://localhost:5000/api/order"
-      }
+      "name": "Orders API",
+      "item": [
+        {
+          "name": "GET /orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "GET /orders/{id}",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["orders", "1"]
+            }
+          }
+        },
+        {
+          "name": "POST /orders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"John Doe\",\n  \"products\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/orders",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /orders/{id}",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/orders/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["orders", "1"]
+            }
+          }
+        }
+      ]
     }
   ]
 }

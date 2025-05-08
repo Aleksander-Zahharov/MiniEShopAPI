@@ -7,6 +7,20 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 
+:: Check if EF Core CLI is installed (for migrations)
+dotnet ef --version >nul 2>&1
+if %ERRORLEVEL% neq 0 (
+    echo Installing EF Core CLI tool...
+    dotnet tool install --global dotnet-ef
+)
+
+:: Check if Newman (Postman CLI) is installed
+newman --version >nul 2>&1
+if %ERRORLEVEL% neq 0 (
+    echo Installing Newman (Postman CLI)...
+    npm install -g newman
+)
+
 :: Restore .NET dependencies
 echo Restoring .NET dependencies...
 dotnet restore

@@ -1,162 +1,142 @@
 # 🛒 Mini E-Shop API
+## 📖 Overview
+This project is an intern test task implementing a complete ASP.NET Core Web API for managing products and orders in a simple e-shop. It showcases clean architecture, SOLID principles, dependency injection, and a switchable caching mechanism, all runnable via Docker Compose.
 
-## 📖 Description
-Mini E-Shop API is a compact and well-structured ASP.NET Core web application designed for managing products and orders in an online store. The project demonstrates clean code principles, RESTful design, SOLID principles, and Docker-based deployment.
+## ✅ Functional Endpoints
+- **Products**  
+  • GET    /api/products          — List all products  
+  • GET    /api/products/{id}     — Get product by ID  
+  • POST   /api/products          — Create a new product  
+  • PUT    /api/products/{id}     — Update an existing product  
+  • DELETE /api/products/{id}     — Delete a product
 
-## ✨ Features
-- **Products**:
-  - 📋 List all products
-  - 🔍 Get product by ID
-  - ➕ Create a new product
-  - ✏️ Update a product
-  - ❌ Delete a product
+- **Orders**  
+  • GET    /api/orders            — List all orders  
+  • GET    /api/orders/{id}       — Get order by ID  
+  • POST   /api/orders            — Create a new order with product IDs  
+  • DELETE /api/orders/{id}       — Cancel an order
 
-- **Orders**:
-  - 📋 List all orders
-  - 🔍 Get order by ID
-  - ➕ Create a new order
-  - ❌ Delete an order
-
-## ⚙️ Technical Requirements
-- **Backend**:
-  - ASP.NET Core API (.NET 6 or later)
-  - Clean architecture (Controllers, Services, Repositories, Models, etc.)
-  - Apply SOLID principles
-  - Use Dependency Injection
-
-- **Database**:
-  - Relational database (PostgreSQL recommended)
-  - Use EF Core for database operations
-
-- **Caching**:
-  - Implement a Factory Pattern to switch between:
-    - 🧠 In-memory cache
-    - 🛠️ Simulated Redis
-
-- **Docker**:
-  - 🐳 Dockerfile for the API
-  - 🛠️ docker-compose.yml to run the API and database
-
-## 🛠️ Installation and Setup
-1. Ensure you have the following installed:
-   - .NET SDK 6.0 or later
-   - Docker and Docker Compose
-
-2. Clone the repository:
-   ```bash
-   git clone <repository URL>
-   cd MiniEShopAPI
-   ```
-
-3. Build and run the containers:
-   ```bash
-   docker-compose up --build
-   ```
-
-4. The API will be available at:
-   ```
-   http://localhost:5000
-   ```
+## ⚙️ Technical Stack
+- **Framework**: ASP.NET Core Web API (.NET 6+ / .NET 9)  
+- **Database**: PostgreSQL via EF Core with automatic migrations  
+- **Caching**: Factory-based switch between In-Memory and Simulated Redis  
+- **Architecture**: Controllers, Services, Repositories, Models (clean code & DI)  
+- **API Docs**: Swagger / Swashbuckle  
+- **Deployment**: Docker & docker-compose (API + PostgreSQL)
 
 ## 🧪 Testing
-- **Postman**:
-  - Import the `Tests/postman_tests.json` file into Postman to test the API.
+- Automated tests with xUnit covering Docker setup, caching, and API endpoints  
+- Example requests in `Tests/curl_tests.http` and `Tests/postman_tests.json`  
+- Run all tests:
+  ```bash
+  dotnet test
+  ```
 
-- **curl**:
-  - Use the `Tests/curl_tests.http` file to execute requests via REST Client or command line.
+--------------------------------------------------------------------
 
-- **Automated Tests**:
-  - Run tests using the following command:
-    ```bash
-    dotnet test
-    ```
-
-## 📂 Project Structure
-- **Controllers**: Handles HTTP requests.
-- **Services**: Application logic and caching.
-- **Repositories**: Data access.
-- **Models**: Data models.
-- **Tests**: Tests to verify functionality.
+## 📂 Project structure  
+- 🗂️ **MiniEShopAPI** (API project)  
+  - 📁 **Controllers**: ProductController, OrderController (HTTP endpoints)  
+  - 📁 **Data**: ApplicationDbContext (EF Core context)  
+  - 📁 **Migrations**: EF Core migration files for database schema  
+  - 📁 **Models**: Product.cs, Order.cs (entity definitions)  
+  - 📁 **Repositories**: Data access via IProductRepository & implementations  
+  - 📁 **Services**: Business logic & caching (InMemory, SimulatedRedis)  
+  - 📁 **Properties**: launchSettings.json (environment profiles)  
+- 🗂️ **Tests** (unit & integration tests)  
+  - 🧪 CacheTests.cs, DockerTests.cs, GeneralTests.cs (xUnit tests)  
+  - 🔧 curl_tests.http, postman_tests.json (manual API tests)  
+- 📋 **setup.bat**: Windows setup script for prerequisites  
+- 📦 **Dockerfile**: Container image definition for API  
+- 🐳 **docker-compose.yml**: Docker Compose config for API + PostgreSQL  
+- 📄 **README.md**: Project overview and instructions  
 
 --------------------------------------------------------------------
 
 # 🚀 How to run it
 
-0. 🖥️ **Open three terminals in the root directory of this project**:
+### 🖥️ **Install all necessary packages**:
+- (If you have just downloaded this project) Run the setup script:
+	`setup.bat`
 
-1. 🍍 **First terminal**: For the application.
+### 🐳 **Run using Docker**
+
+- Open Docker Desktop
+
+- Start Docker in terminal:
+`docker compose up --build` occupies the terminal (Press `CTRL+C` to stop)
+`docker compose down && docker compose up --build -d ` will run in the background
 	
-	- (If you have just downloaded this project) Run the setup script:
-		```bash
-		setup.bat
-		```
+- If Docker was already connected you can run it just by pressing run button in the Docker Desktop App
 
-   - (If you are running the program for the second time, the ports might still be occupied) Use this command to check what is using port 5000:
-		```bash
-		netstat -ano | findstr :5000
-		```
-		- Then use the following command to terminate the processes:
-		```bash
-		taskkill /PID <PID> /F
-		```
-     - Replace `<PID>` with the process ID.
+- Check that containers are active and Docker is running:
+`docker ps`
 
-	- Then clean and build the project:
-		```bash
-		dotnet clean
-		```
-		```bash
-		dotnet build
-		```
+- Next line will show if you are connected to database
+`docker logs minieshopapi-api-1`
+- Or you can connect by hand
+`docker exec -it minieshopapi-db-1 psql -U postgres`
 
-	- Run the application:
-		```bash
-		dotnet run --project MiniEShopAPI/MiniEShopAPI.csproj
-		```
+- Use this SQL querry to check if database works
+`\l`
+ Press `CTRL+Z` to escape the editor
 
-2. 🐳 **In the second terminal**:
-   
-   - Open Docker Desktop
+- There are tests in Tests/DockerTests.cs, but we can just run them all at once
+`dotnet test`
 
-   - Start Docker in terminal:
-     ```bash
-     docker compose up --build
+##### If you run into DB issues:
+
+- Migrate DB
+` dotnet ef database update --project MiniEShopAPI/MiniEShopAPI.csproj`
+
+- Test if table is created
+`docker exec -it minieshopapi-db-1 psql -U postgres -c "\dt"`	 
+	
+
+### 👽 **Run via dotnet**
+	
+
+
+- Build and Run the application:
+`dotnet build`
+`dotnet run --project MiniEShopAPI/MiniEShopAPI.csproj`
+
+##### Occupied ports
+
+- If you are running the program for the second time, the ports might still be occupied. Use this command to check what is using port 5000:
+`netstat -ano | findstr :5000`
+
+  - Then use the following command to terminate the processes:
+	`taskkill /PID <PID> /F`
+- Replace `<PID>` with the process ID.
+
+- Then clean and build the project:
+`dotnet clean`
+`dotnet build`
+
+
+### 🔍 **Manually run tests**:
+
+- Test the database connection:
+`curl http://localhost:8080/api/products/test-db-connection`
+
+- Now run all **tests**:
+`dotnet test`
+
+- Optionally, test API endpoints manually:
+`curl -X GET "http://localhost:8080/api/products/4"` to get product by ID
+and to create new product:
+    ```bash
+     curl -X POST http://localhost:8080/api/products -H "Content-Type: application/json" -d "{\"name\":\"Product 4\", \"description\":\"Description for Product 4\", \"price\":40.99}" 
      ```
-   - Optionally, press `v` to open the desktop version of Docker.
 
-   - If you are running the program and Docker for the second time you may stumble uppon an issue in Docker Desktop if you try to stop it `Cannot stop Docker Compose application. Reason: Max retries reached: connect ENOENT...`, then just restart the desktop version
-   (mb with CTRL+SHIFT+ESC. Or mb restart your PC).
+- Run Postman tests yourself:
+`newman run MiniEShopAPI/Tests/postman_tests.json`
 
-3. 🔍 **In the third terminal**:
+	 
+#### 🗄️ **Don't forget to migrate the database from time to time**:
 
-   - Test the database connection:
-     ```bash
-     curl http://localhost:5000/api/product/test-db-connection
-     ```
-	 or open this link in your browser
-
-   - Now run **tests**:
-     ```bash
-     dotnet test
-     ```
-   - Optionally, test API endpoints manually:
-     ```bash
-     curl -X GET "http://localhost:5000/api/product?name=Product%204"
-     ```
-     ```bash
-     curl -X POST http://localhost:5000/api/product -H "Content-Type: application/json" -d "{\"Name\":\"Product 4\", \"Description\":\"Description for Product 4\", \"Price\":40.99}"
-     ```
-   - You can also run Postman tests yourself:
-	 ```bash
-	 newman run MiniEShopAPI/Tests/postman_tests.json
-	 ```
-4. 🗄️ **Don't forget to migrate the database from time to time**:
-
-	 ```bash
-	dotnet ef database update --project MiniEShopAPI/MiniEShopAPI.csproj
-	 ```
-
-5. ✅ **Press CTRL+C to close terminals when finished**
+`dotnet ef database update --project MiniEShopAPI/MiniEShopAPI.csproj`
 
 ---
 
